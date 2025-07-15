@@ -1,21 +1,9 @@
 services:
   - type: web
     name: tiffin-service-backend
-    env: java
-    buildCommand: "mvn clean package"
-    startCommand: "java -jar target/*.jar"
+    env: docker
     plan: free
+    repo: https://github.com/mangeshvajale6340/TiffinServiceBackend
     branch: main
-    envVars:
-      - key: SPRING_DATASOURCE_URL
-        sync: false
-      - key: SPRING_DATASOURCE_USERNAME
-        sync: false
-      - key: SPRING_DATASOURCE_PASSWORD
-        sync: false
-      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        sync: false
-      - key: SPRING_JPA_SHOW_SQL
-        sync: false
-      - key: PORT
-        sync: false
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true

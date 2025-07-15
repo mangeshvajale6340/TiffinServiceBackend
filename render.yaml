@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: tiffin-service-backend
+    env: java
+    buildCommand: "./mvnw clean package"
+    startCommand: "java -jar target/*.jar"
+    plan: free
+    branch: main
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        sync: false
+      - key: SPRING_JPA_SHOW_SQL
+        sync: false
+      - key: PORT
+        sync: false

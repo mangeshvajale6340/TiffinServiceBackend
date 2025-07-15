@@ -1,18 +1,17 @@
-# Use a valid and available Maven image
 FROM maven:3.8-openjdk-17 AS build
 
-WORKDIR /app
-
+WORKDIR /build
 COPY . .
 
-# Build the project and skip tests
+# Change directory before running mvn
+WORKDIR /build/TiffinServiceBackend
 RUN mvn clean package -DskipTests
 
-# Run the app with JDK
 FROM openjdk:17-jdk
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+# Copy final jar
+COPY --from=build /build/TiffinServiceBackend/target/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]

@@ -1,14 +1,11 @@
-# Use official OpenJDK image
-FROM openjdk:17
-
-# Set the working directory
+# 1. Use Maven to build
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /app
-
-# Copy all project files
 COPY . .
+RUN mvn clean package -DskipTests
 
-# Build the project
-RUN ./mvnw clean package -DskipTests
-
-# Run the app
-CMD ["java", "-jar", "target/yourappname.jar"]
+# 2. Use JDK to run the app
+FROM openjdk:17
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+CMD ["java", "-jar", "app.jar"]

@@ -2,7 +2,7 @@ services:
   - type: web
     name: tiffin-service-backend
     env: java
-    buildCommand: "./mvnw clean package"
+    buildCommand: "mvn clean package"
     startCommand: "java -jar target/*.jar"
     plan: free
     branch: main
